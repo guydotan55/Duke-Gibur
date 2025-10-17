@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Duke Dog Maker</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>👑 Duke-Style Dog Portrait</h1>
+
+    <section class="card">
+      <h2>1) Upload your dog photo</h2>
+      <p>Use a clear, front or 3/4 headshot with good lighting.</p>
+      <input id="file" type="file" accept="image/*" />
+      <button id="btn">Transform</button>
+      <div id="status"></div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h3>Original</h3>
+        <img id="preview" alt="Preview" />
+      </div>
+      <div class="panel">
+        <h3>Result</h3>
+        <img id="result" alt="Result" />
+        <a id="download" download="duke-dog.png">Download</a>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

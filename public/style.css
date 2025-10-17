@@ -1,0 +1,11 @@
+*{box-sizing:border-box}
+body{font-family:system-ui,Arial,sans-serif;margin:0;background:#0f1115;color:#e9e9ef}
+.container{max-width:980px;margin:2rem auto;padding:0 1rem}
+.card,.panel{background:#171923;padding:1rem;border-radius:12px}
+.card{margin-bottom:1rem}
+.grid{display:grid;gap:1rem;grid-template-columns:1fr 1fr}
+button{padding:.6rem 1rem;border-radius:8px;border:0;background:#6a5acd;color:#fff;cursor:pointer}
+button:disabled{opacity:.6;cursor:not-allowed}
+img{width:100%;max-height:560px;object-fit:contain;background:#0c0e14;border-radius:8px}
+#download{display:none;margin-top:.75rem;padding:.5rem .8rem;border:1px solid #3d3f4b;border-radius:6px;text-decoration:none;color:#e9e9ef}
+#status{margin-top:.75rem;min-height:1.2rem;color:#a3ffa3}
