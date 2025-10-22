@@ -30,9 +30,6 @@
       
       <nav class="step-nav">
         <div class="nav-spacer"></div>
-        <button id="next1" class="nav-btn nav-next" disabled>
-          Next <span class="nav-arrow">→</span>
-        </button>
       </nav>
     </section>
 
@@ -45,12 +42,15 @@
         </div>
         
         <div class="style-preview-container">
-          <div class="style-preview-placeholder">
-            <img src="style/duke-style-reference.jpg" alt="Royal Baroque Portrait" class="style-preview" />
-          </div>
-          <div class="style-info">
-            <h3>Royal Baroque Portrait</h3>
-          </div>
+          <button type="button" class="style-preview-btn" data-style-id="royal-baroque">
+            <div class="style-preview-placeholder">
+              <img src="style/duke-style-reference.jpg" alt="Royal Baroque Portrait" class="style-preview" />
+            </div>
+            <div class="style-info">
+              <h3>Royal Baroque Portrait</h3>
+              <p class="style-hint">Tap to select</p>
+            </div>
+          </button>
         </div>
       </div>
       
@@ -58,9 +58,7 @@
         <button id="back2" class="nav-btn nav-back">
           <span class="nav-arrow">←</span> Back
         </button>
-        <button id="next2" class="nav-btn nav-next">
-          Next <span class="nav-arrow">→</span>
-        </button>
+        <div class="nav-spacer"></div>
       </nav>
     </section>
 

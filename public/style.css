@@ -169,6 +169,26 @@ body {
   gap: 1rem;
 }
 
+.style-preview-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: all 0.2s;
+  width: 100%;
+  text-align: center;
+}
+
+.style-preview-btn:hover, .style-preview-btn:focus {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px var(--shadow);
+}
+
+.style-preview-btn:active {
+  transform: translateY(-2px);
+}
+
 .style-preview-placeholder {
   flex: 1;
   display: flex;
@@ -198,6 +218,14 @@ body {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
+}
+
+.style-hint {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 500;
+  opacity: 0.8;
 }
 
 /* Upload Placeholder (Step 3) */
