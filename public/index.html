@@ -3,33 +3,93 @@
 <head>
   <meta charset="utf-8" />
   <title>Duke Dog Maker</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <main class="container">
-    <h1>👑 Duke-Style Dog Portrait</h1>
-
-    <section class="card">
-      <h2>1) Upload your dog photo</h2>
-      <p>Use a clear, front or 3/4 headshot with good lighting.</p>
-      <input id="file" type="file" accept="image/*" />
-      <button id="btn">Transform</button>
-      <div id="status"></div>
+  <main class="app">
+    <!-- Step 1: Gender Selection -->
+    <section id="step1" class="screen active">
+      <div class="screen-content">
+        <div class="header">
+          <h1>👑 Duke Dog Portrait</h1>
+          <p>Choose your dog's style preference</p>
+        </div>
+        
+        <div class="gender-selection">
+          <button type="button" class="gender-btn" data-gender="male">
+            <span class="gender-icon">♂</span>
+            <span class="gender-text">Male</span>
+          </button>
+          <button type="button" class="gender-btn" data-gender="female">
+            <span class="gender-icon">♀</span>
+            <span class="gender-text">Female</span>
+          </button>
+        </div>
+      </div>
+      
+      <nav class="step-nav">
+        <div class="nav-spacer"></div>
+        <button id="next1" class="nav-btn nav-next" disabled>
+          Next <span class="nav-arrow">→</span>
+        </button>
+      </nav>
     </section>
 
-    <section class="grid">
-      <div class="panel">
-        <h3>Original</h3>
-        <img id="preview" alt="Preview" />
+    <!-- Step 2: Style Selection -->
+    <section id="step2" class="screen">
+      <div class="screen-content">
+        <div class="header">
+          <h2>Choose Your Style</h2>
+          <p>1 of 1</p>
+        </div>
+        
+        <div class="style-preview-container">
+          <div class="style-preview-placeholder">
+            <img src="style/duke-style-reference.jpg" alt="Royal Baroque Portrait" class="style-preview" />
+          </div>
+          <div class="style-info">
+            <h3>Royal Baroque Portrait</h3>
+          </div>
+        </div>
       </div>
-      <div class="panel">
-        <h3>Result</h3>
-        <img id="result" alt="Result" />
-        <a id="download" download="duke-dog.png">Download</a>
+      
+      <nav class="step-nav">
+        <button id="back2" class="nav-btn nav-back">
+          <span class="nav-arrow">←</span> Back
+        </button>
+        <button id="next2" class="nav-btn nav-next">
+          Next <span class="nav-arrow">→</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- Step 3: Upload & Transform -->
+    <section id="step3" class="screen">
+      <div class="screen-content">
+        <div class="header">
+          <h2>Upload Your Dog</h2>
+          <p>Clear photo with good lighting works best</p>
+        </div>
+        
+        <div class="upload-placeholder">
+          <div class="upload-icon">📷</div>
+          <p>Upload & Transform features coming soon...</p>
+          <div class="selected-info">
+            <p><strong>Selected:</strong> <span id="selected-gender">None</span> • Royal Baroque</p>
+          </div>
+        </div>
       </div>
+      
+      <nav class="step-nav">
+        <button id="back3" class="nav-btn nav-back">
+          <span class="nav-arrow">←</span> Back
+        </button>
+        <div class="nav-spacer"></div>
+      </nav>
     </section>
   </main>
+
   <script src="script.js"></script>
 </body>
 </html>

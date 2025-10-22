@@ -1,41 +1,96 @@
-const fileInput = document.getElementById("file");
-const btn = document.getElementById("btn");
-const statusEl = document.getElementById("status");
-const previewEl = document.getElementById("preview");
-const resultEl = document.getElementById("result");
-const downloadEl = document.getElementById("download");
+// Simple state management for Phase 1
+const state = {
+  gender: null,
+  currentStep: 1
+};
 
-fileInput.addEventListener("change", () => {
-  const f = fileInput.files?.[0];
-  if (f) previewEl.src = URL.createObjectURL(f);
-});
+// DOM elements
+const screens = {
+  1: document.getElementById('step1'),
+  2: document.getElementById('step2'), 
+  3: document.getElementById('step3')
+};
 
-btn.addEventListener("click", async () => {
-  const f = fileInput.files?.[0];
-  if (!f) { alert("Choose an image first."); return; }
+// Initialize Phase 1
+function init() {
+  setupBasicNavigation();
+  setupGenderSelection();
+  showScreen(1);
+}
 
-  btn.disabled = true;
-  statusEl.textContent = "Generating… this can take ~30–60s";
-  resultEl.src = "";
-  downloadEl.style.display = "none";
+// Basic navigation between screens
+function setupBasicNavigation() {
+  // Step 1 -> 2
+  document.getElementById('next1').addEventListener('click', () => {
+    if (state.gender) {
+      showScreen(2);
+    }
+  });
+  
+  // Step 2 -> 1
+  document.getElementById('back2').addEventListener('click', () => {
+    showScreen(1);
+  });
+  
+  // Step 2 -> 3
+  document.getElementById('next2').addEventListener('click', () => {
+    showScreen(3);
+  });
+  
+  // Step 3 -> 2
+  document.getElementById('back3').addEventListener('click', () => {
+    showScreen(2);
+  });
+}
 
-  try {
-    const fd = new FormData();
-    fd.append("photo", f);
+// Gender selection logic
+function setupGenderSelection() {
+  const genderBtns = document.querySelectorAll('.gender-btn');
+  const selectedGenderEl = document.getElementById('selected-gender');
+  
+  genderBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const gender = e.currentTarget.dataset.gender;
+      
+      // Update state
+      state.gender = gender;
+      
+      // Update UI
+      genderBtns.forEach(b => b.classList.remove('selected'));
+      e.currentTarget.classList.add('selected');
+      
+      // Enable next button
+      document.getElementById('next1').disabled = false;
+      
+      // Update selected info for step 3
+      selectedGenderEl.textContent = gender.charAt(0).toUpperCase() + gender.slice(1);
+    });
+  });
+}
 
-    const res = await fetch("/api/transform", { method: "POST", body: fd });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Unknown error");
-
-    const dataUrl = `data:image/png;base64,${data.imageBase64}`;
-    resultEl.src = dataUrl;
-    downloadEl.href = dataUrl;
-    downloadEl.style.display = "inline-block";
-    statusEl.textContent = "Done! 👑";
-  } catch (e) {
-    console.error(e);
-    statusEl.textContent = `Error: ${e.message}`;
-  } finally {
-    btn.disabled = false;
+// Screen navigation with transitions
+function showScreen(step) {
+  // Hide all screens
+  Object.values(screens).forEach(screen => {
+    screen.classList.remove('active', 'prev');
+  });
+  
+  // Show current screen
+  screens[step].classList.add('active');
+  
+  // Add prev class to previous screens for slide animation
+  for (let i = 1; i < step; i++) {
+    screens[i].classList.add('prev');
   }
-});
+  
+  state.currentStep = step;
+  
+  console.log(`📱 Navigated to Step ${step}`, { gender: state.gender });
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
