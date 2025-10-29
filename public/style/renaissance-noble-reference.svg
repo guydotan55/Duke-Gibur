@@ -1,0 +1,63 @@
+<svg width="400" height="500" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Renaissance color gradients -->
+    <linearGradient id="renaissanceGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="emeraldSilk" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2E8B57;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3CB371;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#228B22;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="parchment" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5E6D3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8D5B7;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Renaissance study background -->
+  <rect width="400" height="500" fill="url(#parchment)"/>
+  
+  <!-- Scholarly books backdrop -->
+  <rect x="20" y="30" width="60" height="8" fill="#8B4513" rx="2"/>
+  <rect x="25" y="38" width="50" height="8" fill="#A0522D" rx="2"/>
+  <rect x="30" y="46" width="45" height="8" fill="#8B4513" rx="2"/>
+  
+  <rect x="320" y="40" width="55" height="8" fill="#654321" rx="2"/>
+  <rect x="315" y="48" width="60" height="8" fill="#8B4513" rx="2"/>
+  <rect x="325" y="56" width="50" height="8" fill="#A0522D" rx="2"/>
+  
+  <!-- Decorative Renaissance frame -->
+  <rect x="10" y="10" width="380" height="480" fill="none" stroke="url(#renaissanceGold)" stroke-width="3" rx="8"/>
+  <rect x="15" y="15" width="370" height="470" fill="none" stroke="url(#renaissanceGold)" stroke-width="1" rx="6"/>
+  
+  <!-- Central portrait area -->
+  <rect x="80" y="120" width="240" height="300" fill="url(#emeraldSilk)" rx="12" stroke="url(#renaissanceGold)" stroke-width="2"/>
+  
+  <!-- Renaissance doublet design -->
+  <rect x="150" y="160" width="100" height="120" fill="url(#emeraldSilk)" rx="6"/>
+  
+  <!-- Gold chain of office -->
+  <circle cx="200" cy="180" r="15" fill="none" stroke="url(#renaissanceGold)" stroke-width="3"/>
+  <circle cx="180" cy="190" r="8" fill="none" stroke="url(#renaissanceGold)" stroke-width="2"/>
+  <circle cx="220" cy="190" r="8" fill="none" stroke="url(#renaissanceGold)" stroke-width="2"/>
+  
+  <!-- White collar detail -->
+  <path d="M 160 180 Q 200 160 240 180 L 235 190 Q 200 170 165 190 Z" fill="#F8F8FF" stroke="#E0E0E0"/>
+  
+  <!-- Astronomical instrument -->
+  <circle cx="320" cy="150" r="25" fill="none" stroke="#8B4513" stroke-width="2"/>
+  <line x1="305" y1="150" x2="335" y2="150" stroke="#8B4513" stroke-width="1"/>
+  <line x1="320" y1="135" x2="320" y2="165" stroke="#8B4513" stroke-width="1"/>
+  
+  <!-- Quill and inkwell -->
+  <ellipse cx="100" cy="400" rx="8" ry="4" fill="#2F4F4F"/>
+  <path d="M 108 396 Q 120 385 125 375" stroke="#8B4513" stroke-width="2" fill="none"/>
+  
+  <!-- Renaissance text banner -->
+  <rect x="50" y="440" width="300" height="40" fill="rgba(255,255,255,0.9)" rx="6" stroke="url(#renaissanceGold)" stroke-width="1"/>
+  <text x="200" y="455" font-family="serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2F4F4F">Renaissance Noble</text>
+  <text x="200" y="470" font-family="serif" font-size="12" text-anchor="middle" fill="#556B2F">15th-16th Century • Scholarly Elegance</text>
+</svg>

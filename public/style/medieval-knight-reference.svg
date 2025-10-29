@@ -1,0 +1,91 @@
+<svg width="400" height="500" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Medieval gradients -->
+    <linearGradient id="steelArmor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#C0C0C0;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#E5E5E5;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#B0B0B0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A9A9A9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="heraldicBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#003366;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0066CC;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#002244;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="heraldicRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B0000;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#DC143C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#660000;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="medievalGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#B8860B;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DAA520;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="castleStone" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#696969;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#778899;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2F4F4F;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Medieval castle hall background -->
+  <rect width="400" height="500" fill="url(#castleStone)"/>
+  
+  <!-- Stone wall texture -->
+  <rect x="0" y="0" width="400" height="500" fill="url(#castleStone)"/>
+  <rect x="20" y="80" width="60" height="40" fill="#555555" stroke="#2F4F4F" stroke-width="1" rx="2"/>
+  <rect x="320" y="100" width="60" height="35" fill="#555555" stroke="#2F4F4F" stroke-width="1" rx="2"/>
+  <rect x="30" y="300" width="50" height="45" fill="#555555" stroke="#2F4F4F" stroke-width="1" rx="2"/>
+  
+  <!-- Castle banners -->
+  <rect x="50" y="30" width="30" height="80" fill="url(#heraldicBlue)" rx="2"/>
+  <polygon points="50,110 65,120 80,110 80,30 50,30" fill="url(#heraldicBlue)"/>
+  <path d="M 58 45 L 72 60 L 58 75 L 72 45 L 58 60 L 72 75" stroke="url(#medievalGold)" stroke-width="2" fill="none"/>
+  
+  <rect x="320" y="40" width="30" height="80" fill="url(#heraldicRed)" rx="2"/>
+  <polygon points="320,120 335,130 350,120 350,40 320,40" fill="url(#heraldicRed)"/>
+  <circle cx="335" cy="65" r="12" fill="none" stroke="url(#medievalGold)" stroke-width="2"/>
+  
+  <!-- Torch holders -->
+  <rect x="100" y="150" width="4" height="30" fill="#654321"/>
+  <ellipse cx="102" cy="145" rx="8" ry="6" fill="#FF4500"/>
+  <rect x="296" y="180" width="4" height="30" fill="#654321"/>
+  <ellipse cx="298" cy="175" rx="8" ry="6" fill="#FF4500"/>
+  
+  <!-- Central knight portrait area -->
+  <rect x="130" y="120" width="140" height="250" fill="url(#steelArmor)" rx="10" stroke="#2F4F4F" stroke-width="2"/>
+  
+  <!-- Chainmail texture -->
+  <pattern id="chainmail" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+    <circle cx="4" cy="4" r="1.5" fill="none" stroke="#A9A9A9" stroke-width="0.5"/>
+  </pattern>
+  <rect x="145" y="140" width="110" height="80" fill="url(chainmail)" opacity="0.7"/>
+  
+  <!-- Armor plates -->
+  <ellipse cx="200" cy="180" rx="40" ry="25" fill="url(#steelArmor)" stroke="#696969" stroke-width="1"/>
+  <ellipse cx="200" cy="220" rx="35" ry="20" fill="url(#steelArmor)" stroke="#696969" stroke-width="1"/>
+  <ellipse cx="200" cy="250" rx="30" ry="18" fill="url(#steelArmor)" stroke="#696969" stroke-width="1"/>
+  
+  <!-- Heraldic surcoat -->
+  <rect x="160" y="200" width="80" height="120" fill="url(#heraldicBlue)" rx="6" opacity="0.8"/>
+  
+  <!-- Coat of arms -->
+  <rect x="175" y="220" width="50" height="60" fill="white" rx="4" stroke="url(#medievalGold)" stroke-width="1"/>
+  <path d="M 185 240 L 200 255 L 215 240 L 215 270 L 185 270 Z" fill="url(#heraldicRed)"/>
+  <circle cx="200" cy="245" r="5" fill="url(#medievalGold)"/>
+  
+  <!-- Ceremonial sword -->
+  <rect x="280" y="180" width="6" height="80" fill="#2F4F4F"/>
+  <rect x="275" y="175" width="16" height="10" fill="url(#medievalGold)" rx="2"/>
+  <circle cx="283" cy="170" r="4" fill="url(#medievalGold)"/>
+  
+  <!-- Shield in corner -->
+  <path d="M 340 350 Q 360 340 380 350 L 380 400 Q 360 410 340 400 Z" fill="url(#heraldicRed)" stroke="url(#medievalGold)" stroke-width="2"/>
+  <path d="M 350 360 L 360 380 L 370 360" stroke="url(#medievalGold)" stroke-width="2" fill="none"/>
+  
+  <!-- Medieval text banner -->
+  <rect x="50" y="440" width="300" height="40" fill="rgba(255,255,255,0.9)" rx="6" stroke="url(#medievalGold)" stroke-width="1"/>
+  <text x="200" y="455" font-family="serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#2F4F4F">Medieval Knight</text>
+  <text x="200" y="470" font-family="serif" font-size="12" text-anchor="middle" fill="#8B0000">12th-14th Century • Noble Warrior</text>
+</svg>
