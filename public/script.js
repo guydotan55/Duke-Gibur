@@ -48,7 +48,7 @@ const styles = [
   {
     id: 'egyptian-pharaoh',
     name: 'Egyptian Pharaoh',
-    preview: 'style/egyptian-pharaoh-reference.jpg',
+    preview: 'style/egyptian-pharaoh-reference.png',
     fallback: 'style/duke-style-reference.jpg',
     description: 'Divine ruler with golden headdress and ceremonial regalia',
     period: 'Ancient Egypt',
