@@ -39,7 +39,7 @@ const styles = [
   {
     id: 'roman-gladiator',
     name: 'Roman Gladiator',
-    preview: 'style/roman-gladiator-reference.jpg',
+    preview: 'style/roman-gladiator-reference.png',
     fallback: 'style/duke-style-reference.jpg',
     description: 'Legendary arena warrior with bronze armor and crimson cape',
     period: 'Ancient Rome',
