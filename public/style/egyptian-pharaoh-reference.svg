@@ -1,0 +1,66 @@
+<svg width="400" height="500" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="desertGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFA500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DAA520;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="egyptianBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#FFF4E6;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#FFE4B5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#DEB887;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Desert sunset background -->
+  <rect width="400" height="500" fill="url(#sunGlow)"/>
+  
+  <!-- Pyramid silhouettes -->
+  <polygon points="50,300 100,200 150,300" fill="#8B7355" opacity="0.7"/>
+  <polygon points="280,320 320,240 360,320" fill="#8B7355" opacity="0.6"/>
+  
+  <!-- Sphinx silhouette -->
+  <ellipse cx="320" cy="310" rx="30" ry="15" fill="#8B7355" opacity="0.5"/>
+  <rect x="290" y="305" width="20" height="15" fill="#8B7355" opacity="0.5"/>
+  
+  <!-- Central portrait placeholder -->
+  <rect x="120" y="150" width="160" height="220" fill="url(#desertGold)" rx="12" stroke="#B8860B" stroke-width="3"/>
+  
+  <!-- Egyptian headdress outline -->
+  <path d="M 140 170 Q 200 150 260 170 L 255 200 Q 200 180 145 200 Z" fill="url(#desertGold)" stroke="#B8860B" stroke-width="2"/>
+  
+  <!-- Cobra insignia -->
+  <path d="M 200 165 Q 205 155 210 165 Q 208 175 200 170 Q 192 175 190 165 Q 195 155 200 165" fill="url(#egyptianBlue)"/>
+  
+  <!-- Collar/necklace -->
+  <rect x="160" y="220" width="80" height="15" fill="url(#desertGold)" rx="7"/>
+  <circle cx="170" cy="227" r="3" fill="url(#egyptianBlue)"/>
+  <circle cx="200" cy="227" r="3" fill="#DC143C"/>
+  <circle cx="230" cy="227" r="3" fill="url(#egyptianBlue)"/>
+  
+  <!-- Ankh staff -->
+  <line x1="280" y1="250" x2="280" y2="320" stroke="url(#desertGold)" stroke-width="4"/>
+  <circle cx="280" cy="245" r="8" fill="none" stroke="url(#desertGold)" stroke-width="3"/>
+  <line x1="272" y1="245" x2="288" y2="245" stroke="url(#desertGold)" stroke-width="3"/>
+  
+  <!-- Hieroglyphs border -->
+  <rect x="30" y="100" width="8" height="8" fill="url(#egyptianBlue)"/>
+  <circle cx="50" cy="104" r="3" fill="url(#desertGold)"/>
+  <path d="M 65 100 L 70 108 L 75 100" stroke="url(#egyptianBlue)" stroke-width="2" fill="none"/>
+  
+  <rect x="320" y="180" width="8" height="8" fill="url(#egyptianBlue)"/>
+  <circle cx="340" cy="184" r="3" fill="url(#desertGold)"/>
+  <path d="M 355 180 L 360 188 L 365 180" stroke="url(#egyptianBlue)" stroke-width="2" fill="none"/>
+  
+  <!-- Placeholder text -->
+  <rect x="50" y="420" width="300" height="60" fill="rgba(255,255,255,0.9)" rx="6" stroke="url(#desertGold)" stroke-width="2"/>
+  <text x="200" y="440" font-family="serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#8B7355">Egyptian Pharaoh</text>
+  <text x="200" y="455" font-family="serif" font-size="12" text-anchor="middle" fill="#B8860B">Ancient Egypt • Divine Ruler</text>
+  <text x="200" y="470" font-family="serif" font-size="10" text-anchor="middle" fill="#666">Generate with provided AI prompt for</text>
+  <text x="200" y="482" font-family="serif" font-size="10" text-anchor="middle" fill="#666">cinema-quality reference image</text>
+</svg>
