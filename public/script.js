@@ -1,5 +1,23 @@
-// Style options data - Streamlined 4 cinema-quality styles
+// Style options data - Your selected 4 cinema-quality styles
 const styles = [
+  {
+    id: 'egyptian-pharaoh',
+    name: 'Egyptian Pharaoh',
+    preview: 'style/egyptian-pharaoh-reference.png',
+    fallback: 'style/duke-style-reference.jpg',
+    description: 'Divine ruler with golden headdress and ceremonial regalia',
+    period: 'Ancient Egypt',
+    promptSuffix: 'Ancient Egyptian Pharaoh portrait with golden ceremonial headdress featuring cobra insignia, ornate collar with precious stones, golden arm bands, flowing white and gold robes, holding ceremonial ankh staff. Pyramid and sphinx silhouettes at sunset background, golden desert sands, hieroglyphic wall decorations, warm golden lighting, ultra-detailed textures.'
+  },
+  {
+    id: 'roman-gladiator',
+    name: 'Roman Gladiator',
+    preview: 'style/roman-gladiator-reference.png',
+    fallback: 'style/duke-style-reference.jpg',
+    description: 'Legendary arena warrior with bronze armor and crimson cape',
+    period: 'Ancient Rome',
+    promptSuffix: 'Roman gladiator portrait with detailed bronze armor, ornate breastplate with eagle insignia, red leather pteruges (skirt), crimson cape, gladius sword, decorated shield. Standing in Roman Colosseum with sand arena floor, warm golden sunlight, cinematic lighting, ultra-detailed textures.'
+  },
   {
     id: 'duke-style',
     name: 'Duke Style Portrait',
@@ -10,15 +28,6 @@ const styles = [
     promptSuffix: 'Classic duke-style portrait with elegant royal attire, regal pose, sophisticated lighting, timeless appeal with rich textures and noble bearing.'
   },
   {
-    id: 'royal-baroque',
-    name: 'Royal Baroque Portrait',
-    preview: 'style/royal-baroque-reference.jpg',
-    fallback: 'style/duke-style-reference.jpg',
-    description: 'Ornate baroque styling with luxurious velvet robes and golden crown',
-    period: '17th-18th Century',
-    promptSuffix: 'Royal/Baroque portrait with deep burgundy velvet robe, dense gold embroidery, white ermine collar, blue velvet mantle, jeweled pendant and chain, ornate gold crown with red velvet cap, golden scepter. Seated on carved wooden throne with rich tapestries background, warm Rembrandt lighting.'
-  },
-  {
     id: 'renaissance-noble',
     name: 'Renaissance Noble',
     preview: 'style/renaissance-noble-reference.png',
@@ -26,15 +35,6 @@ const styles = [
     description: 'Sophisticated Renaissance scholar with silk doublet and scholarly ambiance',
     period: '15th-16th Century',
     promptSuffix: 'Renaissance noble portrait with rich silk doublet in deep emerald or burgundy, ornate gold chain of office, leather gloves, scholarly background with leather-bound books, astronomical instruments, rolled parchments, soft window lighting creating gentle chiaroscuro effect, Italian Renaissance painting style like Leonardo da Vinci or Raphael.'
-  },
-  {
-    id: 'egyptian-pharaoh',
-    name: 'Egyptian Pharaoh',
-    preview: 'style/egyptian-pharaoh-reference.png',
-    fallback: 'style/duke-style-reference.jpg',
-    description: 'Divine ruler with golden headdress and ceremonial regalia',
-    period: 'Ancient Egypt',
-    promptSuffix: 'Ancient Egyptian Pharaoh portrait with golden ceremonial headdress featuring cobra insignia, ornate collar with precious stones, golden arm bands, flowing white and gold robes, holding ceremonial ankh staff. Pyramid and sphinx silhouettes at sunset background, golden desert sands, hieroglyphic wall decorations, warm golden lighting, ultra-detailed textures.'
   }
 ];
 
