@@ -1,49 +1,31 @@
-// Style options data with unique reference images
+// Style options data - Streamlined 4 cinema-quality styles
 const styles = [
+  {
+    id: 'duke-style',
+    name: 'Duke Style Portrait',
+    preview: 'style/duke-style-reference.jpg',
+    fallback: 'style/duke-style-reference.jpg',
+    description: 'Original duke portrait with regal elegance and timeless appeal',
+    period: 'Classic Style',
+    promptSuffix: 'Classic duke-style portrait with elegant royal attire, regal pose, sophisticated lighting, timeless appeal with rich textures and noble bearing.'
+  },
   {
     id: 'royal-baroque',
     name: 'Royal Baroque Portrait',
     preview: 'style/royal-baroque-reference.jpg',
     fallback: 'style/duke-style-reference.jpg',
-    description: 'Classic royal portrait with velvet robes and golden crown',
+    description: 'Ornate baroque styling with luxurious velvet robes and golden crown',
     period: '17th-18th Century',
     promptSuffix: 'Royal/Baroque portrait with deep burgundy velvet robe, dense gold embroidery, white ermine collar, blue velvet mantle, jeweled pendant and chain, ornate gold crown with red velvet cap, golden scepter. Seated on carved wooden throne with rich tapestries background, warm Rembrandt lighting.'
   },
   {
     id: 'renaissance-noble',
     name: 'Renaissance Noble',
-    preview: 'style/renaissance-noble-reference.svg',
+    preview: 'style/renaissance-noble-reference.png',
     fallback: 'style/duke-style-reference.jpg',
-    description: 'Elegant Renaissance styling with silk doublet and scholarly ambiance',
+    description: 'Sophisticated Renaissance scholar with silk doublet and scholarly ambiance',
     period: '15th-16th Century',
-    promptSuffix: 'Renaissance noble portrait with silk doublet, gold chain of office, leather gloves, scholarly background with leather-bound books and astronomical instruments, soft window lighting, Italian Renaissance painting style.'
-  },
-  {
-    id: 'victorian-military',
-    name: 'Victorian Military',
-    preview: 'style/victorian-military-reference.svg',
-    fallback: 'style/duke-style-reference.jpg',
-    description: 'Distinguished military officer with ceremonial uniform and medals',
-    period: '19th Century',
-    promptSuffix: 'Victorian military aristocrat portrait with brass-buttoned naval uniform, ceremonial medals and ribbons, formal military pose in grand mahogany library with globe and maps, British Empire era styling.'
-  },
-  {
-    id: 'medieval-knight',
-    name: 'Medieval Knight',
-    preview: 'style/medieval-knight-reference.svg',
-    fallback: 'style/duke-style-reference.jpg',
-    description: 'Noble knight in ceremonial armor with heraldic elements',
-    period: '12th-14th Century',
-    promptSuffix: 'Medieval knight portrait in polished ceremonial armor, heraldic surcoat with coat of arms, chainmail details, sword at side, castle great hall background with banners and shields, medieval manuscript illumination style.'
-  },
-  {
-    id: 'roman-gladiator',
-    name: 'Roman Gladiator',
-    preview: 'style/roman-gladiator-reference.png',
-    fallback: 'style/duke-style-reference.jpg',
-    description: 'Legendary arena warrior with bronze armor and crimson cape',
-    period: 'Ancient Rome',
-    promptSuffix: 'Roman gladiator portrait with detailed bronze armor, ornate breastplate with eagle insignia, red leather pteruges (skirt), crimson cape, gladius sword, decorated shield. Standing in Roman Colosseum with sand arena floor, warm golden sunlight, cinematic lighting, ultra-detailed textures.'
+    promptSuffix: 'Renaissance noble portrait with rich silk doublet in deep emerald or burgundy, ornate gold chain of office, leather gloves, scholarly background with leather-bound books, astronomical instruments, rolled parchments, soft window lighting creating gentle chiaroscuro effect, Italian Renaissance painting style like Leonardo da Vinci or Raphael.'
   },
   {
     id: 'egyptian-pharaoh',
