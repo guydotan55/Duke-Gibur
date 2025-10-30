@@ -1,7 +1,66 @@
-// Simple state management for Phase 1
+// Style options data with unique reference images
+const styles = [
+  {
+    id: 'royal-baroque',
+    name: 'Royal Baroque Portrait',
+    preview: 'style/royal-baroque-reference.jpg',
+    fallback: 'style/duke-style-reference.jpg',
+    description: 'Classic royal portrait with velvet robes and golden crown',
+    period: '17th-18th Century',
+    promptSuffix: 'Royal/Baroque portrait with deep burgundy velvet robe, dense gold embroidery, white ermine collar, blue velvet mantle, jeweled pendant and chain, ornate gold crown with red velvet cap, golden scepter. Seated on carved wooden throne with rich tapestries background, warm Rembrandt lighting.'
+  },
+  {
+    id: 'renaissance-noble',
+    name: 'Renaissance Noble',
+    preview: 'style/renaissance-noble-reference.svg',
+    fallback: 'style/duke-style-reference.jpg',
+    description: 'Elegant Renaissance styling with silk doublet and scholarly ambiance',
+    period: '15th-16th Century',
+    promptSuffix: 'Renaissance noble portrait with silk doublet, gold chain of office, leather gloves, scholarly background with leather-bound books and astronomical instruments, soft window lighting, Italian Renaissance painting style.'
+  },
+  {
+    id: 'victorian-military',
+    name: 'Victorian Military',
+    preview: 'style/victorian-military-reference.svg',
+    fallback: 'style/duke-style-reference.jpg',
+    description: 'Distinguished military officer with ceremonial uniform and medals',
+    period: '19th Century',
+    promptSuffix: 'Victorian military aristocrat portrait with brass-buttoned naval uniform, ceremonial medals and ribbons, formal military pose in grand mahogany library with globe and maps, British Empire era styling.'
+  },
+  {
+    id: 'medieval-knight',
+    name: 'Medieval Knight',
+    preview: 'style/medieval-knight-reference.svg',
+    fallback: 'style/duke-style-reference.jpg',
+    description: 'Noble knight in ceremonial armor with heraldic elements',
+    period: '12th-14th Century',
+    promptSuffix: 'Medieval knight portrait in polished ceremonial armor, heraldic surcoat with coat of arms, chainmail details, sword at side, castle great hall background with banners and shields, medieval manuscript illumination style.'
+  },
+  {
+    id: 'roman-gladiator',
+    name: 'Roman Gladiator',
+    preview: 'style/roman-gladiator-reference.jpg',
+    fallback: 'style/duke-style-reference.jpg',
+    description: 'Legendary arena warrior with bronze armor and crimson cape',
+    period: 'Ancient Rome',
+    promptSuffix: 'Roman gladiator portrait with detailed bronze armor, ornate breastplate with eagle insignia, red leather pteruges (skirt), crimson cape, gladius sword, decorated shield. Standing in Roman Colosseum with sand arena floor, warm golden sunlight, cinematic lighting, ultra-detailed textures.'
+  },
+  {
+    id: 'egyptian-pharaoh',
+    name: 'Egyptian Pharaoh',
+    preview: 'style/egyptian-pharaoh-reference.svg',
+    fallback: 'style/duke-style-reference.jpg',
+    description: 'Divine ruler with golden headdress and ceremonial regalia',
+    period: 'Ancient Egypt',
+    promptSuffix: 'Ancient Egyptian Pharaoh portrait with golden ceremonial headdress featuring cobra insignia, ornate collar with precious stones, golden arm bands, flowing white and gold robes, holding ceremonial ankh staff. Pyramid and sphinx silhouettes at sunset background, golden desert sands, hieroglyphic wall decorations, warm golden lighting, ultra-detailed textures.'
+  }
+];
+
+// App state management 
 const state = {
   gender: null,
   selectedStyle: null,
+  currentStyleIndex: 0,
   currentStep: 1
 };
 
@@ -12,11 +71,17 @@ const screens = {
   3: document.getElementById('step3')
 };
 
-// Initialize Phase 1
+// Initialize Phase 2
 function init() {
   setupBasicNavigation();
   setupGenderSelection();
-  setupStyleSelection();
+  buildStyleCarousel();
+  setupCarouselNavigation();
+  setupCarouselTouch();
+  
+  // Add keyboard navigation
+  document.addEventListener('keydown', handleKeyboard);
+  
   showScreen(1);
 }
 
@@ -60,25 +125,187 @@ function setupGenderSelection() {
   });
 }
 
-// Style selection logic  
-function setupStyleSelection() {
-  const styleBtn = document.querySelector('.style-preview-btn');
+// Build carousel slides dynamically
+function buildStyleCarousel() {
+  const carouselTrack = document.getElementById('carousel-track');
   
-  if (styleBtn) {
-    styleBtn.addEventListener('click', (e) => {
-      const styleId = e.currentTarget.dataset.styleId;
-      
-      // Update state (we'll add this when we implement multiple styles)
-      state.selectedStyle = styleId;
-      
-      console.log('📸 Style selected:', styleId);
-      
-      // Auto-advance to Step 3 after a brief delay for visual feedback
-      setTimeout(() => {
-        showScreen(3);
-      }, 300);
-    });
+  carouselTrack.innerHTML = styles.map((style, index) => `
+    <div class="carousel-slide" data-style-index="${index}" data-style-id="${style.id}">
+      <img src="${style.preview}" 
+           alt="${style.name} - ${style.period}" 
+           class="style-preview" 
+           loading="lazy"
+           onerror="handleImageError(this, '${style.fallback}')" />
+    </div>
+  `).join('');
+  
+  // Add click handlers to slides
+  const slides = carouselTrack.querySelectorAll('.carousel-slide');
+  slides.forEach(slide => {
+    slide.addEventListener('click', handleStyleSelection);
+  });
+  
+  updateCarouselDisplay();
+}
+
+// Handle image loading errors with graceful fallback
+function handleImageError(img, fallbackSrc) {
+  if (img.src !== fallbackSrc) {
+    console.warn(`Style image failed to load: ${img.src}, using fallback: ${fallbackSrc}`);
+    img.src = fallbackSrc;
+  } else {
+    // If even fallback fails, use SVG placeholder
+    console.error(`Both primary and fallback images failed for style image`);
+    img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDQwMCA1MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjMzc0MTUxIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMjMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOWNhM2FmIiBmb250LWZhbWlseT0ic3lzdGVtLXVpIiBmb250LXNpemU9IjE2Ij5TdHlsZSBSZWZlcmVuY2U8L3RleHQ+Cjx0ZXh0IHg9IjIwMCIgeT0iMjUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjOWNhM2FmIiBmb250LWZhbWlseT0ic3lzdGVtLXVpIiBmb250LXNpemU9IjE2Ij5JbWFnZTwvdGV4dD4KPHN2ZyB4PSIxNzAiIHk9IjI3MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjQwIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjQwIiBmaWxsPSJub25lIiBzdHJva2U9IiM5Y2EzYWYiIHN0cm9rZS13aWR0aD0iMiIgcng9IjQiLz4KPGNpcmNsZSBjeD0iMTgiIGN5PSIxNSIgcj0iNCIgZmlsbD0iIzljYTNhZiIvPgo8cGF0aCBkPSJNMTAgMzBMMjAgMjBMMzAgMjVMMzUgMjBMNTAgMzBIMTBaIiBmaWxsPSIjOWNhM2FmIi8+Cjwvc3ZnPgo8L3N2Zz4K';
+    img.alt = 'Style reference image not available';
   }
+}
+
+// Handle style selection (auto-advance)
+function handleStyleSelection(e) {
+  const styleIndex = parseInt(e.currentTarget.dataset.styleIndex);
+  const styleId = e.currentTarget.dataset.styleId;
+  
+  // Update state
+  state.selectedStyle = styleId;
+  state.currentStyleIndex = styleIndex;
+  
+  console.log('🎨 Style selected:', styles[styleIndex].name, styleId);
+  
+  // Update selected info for step 3
+  const selectedGenderEl = document.getElementById('selected-gender');
+  const selectedStyleEl = document.getElementById('selected-style');
+  const genderText = state.gender ? state.gender.charAt(0).toUpperCase() + state.gender.slice(1) : 'None';
+  selectedGenderEl.textContent = genderText;
+  selectedStyleEl.textContent = styles[styleIndex].name;
+  
+  // Auto-advance to Step 3 after brief visual feedback
+  setTimeout(() => {
+    showScreen(3);
+  }, 400);
+}
+
+// Update carousel display and info
+function updateCarouselDisplay() {
+  const carouselTrack = document.getElementById('carousel-track');
+  const styleCounter = document.getElementById('style-counter');
+  const styleName = document.getElementById('style-name');
+  const styleDescription = document.getElementById('style-description');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  
+  // Update carousel position
+  const translateX = -state.currentStyleIndex * 100;
+  carouselTrack.style.transform = `translateX(${translateX}%)`;
+  
+  // Update info display
+  const currentStyle = styles[state.currentStyleIndex];
+  styleCounter.textContent = `${state.currentStyleIndex + 1} of ${styles.length}`;
+  styleName.textContent = currentStyle.name;
+  styleDescription.textContent = `${currentStyle.description} • ${currentStyle.period}`;
+  
+  // Update button states
+  prevBtn.disabled = state.currentStyleIndex === 0;
+  nextBtn.disabled = state.currentStyleIndex === styles.length - 1;
+}
+
+// Carousel navigation functions
+function navigateCarousel(direction) {
+  const newIndex = state.currentStyleIndex + direction;
+  
+  if (newIndex >= 0 && newIndex < styles.length) {
+    state.currentStyleIndex = newIndex;
+    updateCarouselDisplay();
+  }
+}
+
+function setupCarouselNavigation() {
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  
+  prevBtn.addEventListener('click', () => navigateCarousel(-1));
+  nextBtn.addEventListener('click', () => navigateCarousel(1));
+}
+
+// Touch/swipe support for mobile
+function setupCarouselTouch() {
+  let startX = 0;
+  let currentX = 0;
+  let isDragging = false;
+  
+  const container = document.querySelector('.carousel-track-container');
+  
+  // Touch events
+  container.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  }, { passive: true });
+  
+  container.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+    
+    // Optional: Add visual feedback during swipe
+    const diff = startX - currentX;
+    const threshold = 50;
+    
+    if (Math.abs(diff) > threshold / 2) {
+      container.style.opacity = '0.8';
+    }
+  }, { passive: true });
+  
+  container.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    
+    // Reset visual feedback
+    container.style.opacity = '1';
+    
+    const diffX = startX - currentX;
+    const threshold = 75; // Minimum swipe distance
+    
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && state.currentStyleIndex < styles.length - 1) {
+        // Swipe left -> next style
+        navigateCarousel(1);
+      } else if (diffX < 0 && state.currentStyleIndex > 0) {
+        // Swipe right -> previous style  
+        navigateCarousel(-1);
+      }
+    }
+  }, { passive: true });
+  
+  // Mouse events for desktop
+  container.addEventListener('mousedown', (e) => {
+    startX = e.clientX;
+    isDragging = true;
+    e.preventDefault();
+  });
+  
+  container.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    currentX = e.clientX;
+    e.preventDefault();
+  });
+  
+  container.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    
+    const diffX = startX - currentX;
+    const threshold = 100;
+    
+    if (Math.abs(diffX) > threshold) {
+      if (diffX > 0 && state.currentStyleIndex < styles.length - 1) {
+        navigateCarousel(1);
+      } else if (diffX < 0 && state.currentStyleIndex > 0) {
+        navigateCarousel(-1);
+      }
+    }
+  });
+  
+  // Prevent dragging
+  container.addEventListener('dragstart', (e) => e.preventDefault());
 }
 
 // Screen navigation with transitions
@@ -99,6 +326,31 @@ function showScreen(step) {
   state.currentStep = step;
   
   console.log(`📱 Navigated to Step ${step}`, { gender: state.gender });
+}
+
+// Keyboard navigation support
+function handleKeyboard(e) {
+  // Only handle keyboard on Step 2 (style carousel)
+  if (state.currentStep === 2) {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      if (state.currentStyleIndex > 0) {
+        navigateCarousel(-1);
+      }
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      if (state.currentStyleIndex < styles.length - 1) {
+        navigateCarousel(1);
+      }
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      // Simulate click on current slide
+      const currentSlide = document.querySelector(`[data-style-index="${state.currentStyleIndex}"]`);
+      if (currentSlide) {
+        handleStyleSelection({ currentTarget: currentSlide });
+      }
+    }
+  }
 }
 
 // Initialize when DOM is ready
