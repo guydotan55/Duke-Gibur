@@ -43,7 +43,9 @@ const state = {
   gender: null,
   selectedStyle: null,
   currentStyleIndex: 0,
-  currentStep: 1
+  currentStep: 1,
+  uploadedFile: null,
+  isTransforming: false
 };
 
 // DOM elements
@@ -53,13 +55,14 @@ const screens = {
   3: document.getElementById('step3')
 };
 
-// Initialize Phase 2
+// Initialize Phase 3
 function init() {
   setupBasicNavigation();
   setupGenderSelection();
   buildStyleCarousel();
   setupCarouselNavigation();
   setupCarouselTouch();
+  setupUploadFunctionality();
   
   // Add keyboard navigation
   document.addEventListener('keydown', handleKeyboard);
@@ -83,7 +86,6 @@ function setupBasicNavigation() {
 // Gender selection logic
 function setupGenderSelection() {
   const genderBtns = document.querySelectorAll('.gender-btn');
-  const selectedGenderEl = document.getElementById('selected-gender');
   
   genderBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -96,8 +98,10 @@ function setupGenderSelection() {
       genderBtns.forEach(b => b.classList.remove('selected'));
       e.currentTarget.classList.add('selected');
       
-      // Update selected info for step 3
-      selectedGenderEl.textContent = gender.charAt(0).toUpperCase() + gender.slice(1);
+      console.log('👤 Gender selected:', state.gender);
+      
+      // Update Step 3 display
+      updateStep3Display();
       
       // Auto-advance to Step 2 after a brief delay for visual feedback
       setTimeout(() => {
@@ -154,12 +158,8 @@ function handleStyleSelection(e) {
   
   console.log('🎨 Style selected:', styles[styleIndex].name, styleId);
   
-  // Update selected info for step 3
-  const selectedGenderEl = document.getElementById('selected-gender');
-  const selectedStyleEl = document.getElementById('selected-style');
-  const genderText = state.gender ? state.gender.charAt(0).toUpperCase() + state.gender.slice(1) : 'None';
-  selectedGenderEl.textContent = genderText;
-  selectedStyleEl.textContent = styles[styleIndex].name;
+  // Update Step 3 display
+  updateStep3Display();
   
   // Auto-advance to Step 3 after brief visual feedback
   setTimeout(() => {
@@ -332,6 +332,264 @@ function handleKeyboard(e) {
         handleStyleSelection({ currentTarget: currentSlide });
       }
     }
+  }
+}
+
+// ========== PHASE 3: UPLOAD & TRANSFORM FUNCTIONALITY ==========
+
+// Setup upload functionality
+function setupUploadFunctionality() {
+  const fileInput = document.getElementById('file-input');
+  const fileUploadArea = document.getElementById('file-upload-area');
+  const previewContainer = document.getElementById('preview-container');
+  const previewImage = document.getElementById('preview-image');
+  const changePhotoBtn = document.getElementById('change-photo-btn');
+  const transformBtn = document.getElementById('transform-btn');
+  const createAnotherBtn = document.getElementById('create-another-btn');
+  
+  // File input change
+  fileInput.addEventListener('change', handleFileSelect);
+  
+  // Change photo button
+  changePhotoBtn.addEventListener('click', () => {
+    fileInput.click();
+  });
+  
+  // Drag and drop
+  fileUploadArea.addEventListener('dragover', handleDragOver);
+  fileUploadArea.addEventListener('dragleave', handleDragLeave);
+  fileUploadArea.addEventListener('drop', handleDrop);
+  
+  // Transform button
+  transformBtn.addEventListener('click', handleTransform);
+  
+  // Create another button
+  createAnotherBtn.addEventListener('click', resetUpload);
+}
+
+// Handle file selection
+function handleFileSelect(e) {
+  const file = e.target.files?.[0];
+  if (file) {
+    validateAndPreviewFile(file);
+  }
+}
+
+// Handle drag over
+function handleDragOver(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  document.getElementById('file-upload-area').classList.add('drag-over');
+}
+
+// Handle drag leave
+function handleDragLeave(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  document.getElementById('file-upload-area').classList.remove('drag-over');
+}
+
+// Handle drop
+function handleDrop(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  document.getElementById('file-upload-area').classList.remove('drag-over');
+  
+  const file = e.dataTransfer?.files?.[0];
+  if (file) {
+    validateAndPreviewFile(file);
+  }
+}
+
+// Validate and preview file
+function validateAndPreviewFile(file) {
+  // Validate file type
+  const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+  if (!validTypes.includes(file.type)) {
+    showStatus('Please select a JPG, PNG, or WebP image.', 'error');
+    return;
+  }
+  
+  // Validate file size (8MB limit)
+  const maxSize = 8 * 1024 * 1024;
+  if (file.size > maxSize) {
+    showStatus('Image too large. Please choose a file under 8MB.', 'error');
+    return;
+  }
+  
+  // Store file and show preview
+  state.uploadedFile = file;
+  
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const previewImage = document.getElementById('preview-image');
+    const fileUploadArea = document.getElementById('file-upload-area');
+    const previewContainer = document.getElementById('preview-container');
+    const transformBtn = document.getElementById('transform-btn');
+    
+    previewImage.src = e.target.result;
+    fileUploadArea.style.display = 'none';
+    previewContainer.style.display = 'block';
+    transformBtn.disabled = false;
+    
+    showStatus('');
+    console.log('✅ Image loaded successfully:', file.name);
+  };
+  
+  reader.onerror = () => {
+    showStatus('Failed to load image. Please try again.', 'error');
+  };
+  
+  reader.readAsDataURL(file);
+}
+
+// Handle transform
+async function handleTransform() {
+  if (!state.uploadedFile || !state.gender || !state.selectedStyle || state.isTransforming) {
+    return;
+  }
+  
+  state.isTransforming = true;
+  
+  const transformBtn = document.getElementById('transform-btn');
+  const statusMessage = document.getElementById('status-message');
+  const resultContainer = document.getElementById('result-container');
+  
+  // Update UI for loading state
+  transformBtn.disabled = true;
+  transformBtn.classList.add('loading');
+  resultContainer.style.display = 'none';
+  
+  showStatus('Creating your duke portrait... This takes 30-60 seconds ⏳', 'info');
+  
+  try {
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('photo', state.uploadedFile);
+    formData.append('gender', state.gender);
+    formData.append('styleId', state.selectedStyle);
+    
+    console.log('🚀 Sending transform request:', {
+      gender: state.gender,
+      styleId: state.selectedStyle,
+      fileName: state.uploadedFile.name
+    });
+    
+    // Call API
+    const response = await fetch('/api/transform', {
+      method: 'POST',
+      body: formData
+    });
+    
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.error || `Server error (${response.status})`);
+    }
+    
+    // Show result
+    displayResult(data.imageBase64);
+    
+  } catch (error) {
+    console.error('❌ Transform error:', error);
+    handleTransformError(error);
+  } finally {
+    state.isTransforming = false;
+    transformBtn.disabled = false;
+    transformBtn.classList.remove('loading');
+  }
+}
+
+// Display result
+function displayResult(imageBase64) {
+  const resultImage = document.getElementById('result-image');
+  const downloadBtn = document.getElementById('download-btn');
+  const resultContainer = document.getElementById('result-container');
+  const previewContainer = document.getElementById('preview-container');
+  const transformBtn = document.getElementById('transform-btn');
+  
+  const dataUrl = `data:image/png;base64,${imageBase64}`;
+  
+  resultImage.src = dataUrl;
+  downloadBtn.href = dataUrl;
+  
+  // Hide upload elements, show result
+  previewContainer.style.display = 'none';
+  transformBtn.style.display = 'none';
+  resultContainer.style.display = 'block';
+  
+  showStatus('Portrait complete! 👑✨', 'success');
+  
+  console.log('✅ Portrait generated successfully!');
+}
+
+// Handle transform errors
+function handleTransformError(error) {
+  let message = 'Failed to create portrait. Please try again.';
+  
+  const errorMsg = error.message.toLowerCase();
+  
+  // API quota exceeded
+  if (errorMsg.includes('429') || errorMsg.includes('quota') || errorMsg.includes('resource_exhausted')) {
+    message = '⏰ Service temporarily at capacity. Please try again in a few minutes.';
+  } 
+  // Authentication/API key issues
+  else if (errorMsg.includes('401') || errorMsg.includes('403') || errorMsg.includes('key') || errorMsg.includes('unauthorized')) {
+    message = '🔑 Service configuration issue. Please contact support.';
+  }
+  // File too large
+  else if (errorMsg.includes('413') || errorMsg.includes('large') || errorMsg.includes('payload')) {
+    message = '📦 Image too large. Please try a smaller file (under 8MB).';
+  }
+  // Network issues
+  else if (errorMsg.includes('network') || errorMsg.includes('fetch')) {
+    message = '📡 Network error. Please check your connection and try again.';
+  }
+  
+  showStatus(message, 'error');
+}
+
+// Show status message
+function showStatus(message, type = '') {
+  const statusMessage = document.getElementById('status-message');
+  statusMessage.textContent = message;
+  statusMessage.className = `status-message ${type}`;
+}
+
+// Reset upload
+function resetUpload() {
+  state.uploadedFile = null;
+  
+  const fileInput = document.getElementById('file-input');
+  const fileUploadArea = document.getElementById('file-upload-area');
+  const previewContainer = document.getElementById('preview-container');
+  const transformBtn = document.getElementById('transform-btn');
+  const resultContainer = document.getElementById('result-container');
+  
+  fileInput.value = '';
+  fileUploadArea.style.display = 'block';
+  previewContainer.style.display = 'none';
+  transformBtn.style.display = 'block';
+  transformBtn.disabled = true;
+  resultContainer.style.display = 'none';
+  
+  showStatus('');
+  
+  console.log('🔄 Upload reset');
+}
+
+// Update selected style display on Step 3
+function updateStep3Display() {
+  const selectedStyleName = document.getElementById('selected-style-name');
+  const selectedGenderDisplay = document.getElementById('selected-gender-display');
+  
+  if (state.selectedStyle) {
+    const style = styles.find(s => s.id === state.selectedStyle);
+    selectedStyleName.textContent = style ? style.name : 'None';
+  }
+  
+  if (state.gender) {
+    selectedGenderDisplay.textContent = state.gender.charAt(0).toUpperCase() + state.gender.slice(1);
   }
 }
 

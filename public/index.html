@@ -82,11 +82,54 @@
           <p>Clear photo with good lighting works best</p>
         </div>
         
-        <div class="upload-placeholder">
-          <div class="upload-icon">📷</div>
-          <p>Upload & Transform features coming soon...</p>
-          <div class="selected-info">
-            <p><strong>Selected:</strong> <span id="selected-gender">None</span> • <span id="selected-style">Royal Baroque Portrait</span></p>
+        <div class="upload-container">
+          <!-- File Upload Area -->
+          <div class="file-upload-area" id="file-upload-area">
+            <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" hidden />
+            <label for="file-input" class="file-label">
+              <div class="upload-icon">📷</div>
+              <div class="upload-text">
+                <strong>Choose Photo</strong>
+                <span>or drag and drop</span>
+              </div>
+              <div class="upload-hint">JPG, PNG or WebP • Max 8MB</div>
+            </label>
+          </div>
+          
+          <!-- Image Preview -->
+          <div class="preview-container" id="preview-container" style="display: none;">
+            <img id="preview-image" class="preview-img" alt="Your dog photo" />
+            <button type="button" class="change-photo-btn" id="change-photo-btn">
+              Change Photo
+            </button>
+          </div>
+          
+          <!-- Selected Style Info -->
+          <div class="selected-style-info">
+            <p><strong>Selected Style:</strong> <span id="selected-style-name">None</span></p>
+            <p><strong>Gender:</strong> <span id="selected-gender-display">None</span></p>
+          </div>
+          
+          <!-- Transform Button -->
+          <button type="button" class="transform-btn" id="transform-btn" disabled>
+            ✨ Create Duke Portrait
+          </button>
+          
+          <!-- Status Messages -->
+          <div class="status-message" id="status-message" role="status" aria-live="polite"></div>
+          
+          <!-- Result Section -->
+          <div class="result-container" id="result-container" style="display: none;">
+            <h3 class="result-title">Your Duke Portrait</h3>
+            <img id="result-image" class="result-img" alt="Duke portrait result" />
+            <div class="result-actions">
+              <a id="download-btn" class="download-btn" download="duke-dog-portrait.png">
+                📥 Download Portrait
+              </a>
+              <button type="button" class="secondary-btn" id="create-another-btn">
+                Create Another
+              </button>
+            </div>
           </div>
         </div>
       </div>
